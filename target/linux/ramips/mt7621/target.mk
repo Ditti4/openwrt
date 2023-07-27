@@ -12,6 +12,8 @@ IMAGES_DIR:=../../..
 
 DEFAULT_PACKAGES += wpad-basic-mbedtls uboot-envtools kmod-crypto-hw-eip93
 
+KERNEL_TESTING_PATCHVER:=6.1
+
 define Target/Description
 	Build firmware images for Ralink MT7621 based boards.
 endef
