@@ -13,6 +13,7 @@ PKG_CONFIG_DEPENDS += \
 	CONFIG_VERSION_NUMBER \
 	CONFIG_VERSION_CODE \
 	CONFIG_VERSION_REPO \
+	CONFIG_VERSION_REPO_CORE \
 	CONFIG_VERSION_DIST \
 	CONFIG_VERSION_MANUFACTURER \
 	CONFIG_VERSION_MANUFACTURER_URL \
@@ -30,6 +31,9 @@ VERSION_CODE:=$(if $(VERSION_CODE),$(VERSION_CODE),$(REVISION))
 
 VERSION_REPO:=$(call qstrip,$(CONFIG_VERSION_REPO))
 VERSION_REPO:=$(if $(VERSION_REPO),$(VERSION_REPO),https://downloads.openwrt.org/snapshots)
+
+VERSION_REPO_CORE:=$(call qstrip,$(CONFIG_VERSION_REPO_CORE))
+VERSION_REPO_CORE:=$(if $(VERSION_REPO_CORE),$(VERSION_REPO_CORE),$(VERSION_REPO))
 
 VERSION_DIST:=$(call qstrip,$(CONFIG_VERSION_DIST))
 VERSION_DIST:=$(if $(VERSION_DIST),$(VERSION_DIST),OpenWrt)
@@ -87,6 +91,7 @@ endef
 #'
 
 VERSION_SED_SCRIPT:=$(SED) 's,%U,$(call sed_escape,$(VERSION_REPO)),g' \
+	-e 's,%u,$(call sed_escape,$(VERSION_REPO_CORE)),g' \
 	-e 's,%V,$(call sed_escape,$(VERSION_NUMBER)),g' \
 	-e 's,%v,\L$(call sed_escape,$(subst $(space),_,$(VERSION_NUMBER))),g' \
 	-e 's,%C,$(call sed_escape,$(VERSION_CODE)),g' \
